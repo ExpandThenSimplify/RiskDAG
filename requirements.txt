@@ -1,0 +1,22 @@
+# Core dependencies
+numpy>=1.20.0
+scipy>=1.7.0
+networkx>=2.6.0
+
+# Visualization (required for dashboards)
+plotly>=5.0.0
+ipywidgets>=7.6.0
+ipycytoscape>=1.3.0
+
+# Optional: Data manipulation
+pandas>=1.3.0
+
+# Optional: Static plots
+matplotlib>=3.3.0
+
+# Airflow integration (optional - uncomment if needed)
+# apache-airflow>=2.0.0
+
+# For Jupyter notebooks (optional but recommended for interactive features)
+# jupyter>=1.0.0
+# notebook>=6.4.0

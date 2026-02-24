@@ -1,0 +1,10 @@
+{
+  "extract_customers": {},
+  "extract_orders": {},
+  "transform": {},
+  "validate": {},
+  "load": {},
+  "cloud": {},
+  "database": {},
+  "network": {}
+}
