@@ -5,32 +5,24 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
-RiskDAG is a Python library designed for enterprise risk managers to model, analyze, and quantify risks in existing and new data pipelines and enterprise systems. The underlying philosophy of this package is that since many complex dependencies in modern tech stacks are handled by DAGs (directed acyclic graphs) in the Apache Airflow framework, enterprise risk managers should be able to observe these crucial DAG workflows, annotate them with estimates of the probability of failure and impact costs, and then quantify the business risks of failure cascades. The goal of the RiskDAG package is to enable enterprise risk managers to improve tech stack observability and enable
-a data-driven conversation around the business impact of risks facing the organization.
+RiskDAG is a Python library designed for enterprise risk managers to model, analyze, and quantify risks in existing and new data pipelines and enterprise systems. The underlying philosophy of this package is that since many complex dependencies in modern tech stacks are handled by DAGs (directed acyclic graphs) in the Apache Airflow framework, enterprise risk managers should be able to observe these crucial DAG workflows, annotate them with estimates of the probability of failure and impact costs, and then quantify the business risks of failure cascades. The goal of the RiskDAG package is to enable enterprise risk managers to improve tech stack observability.
 
 The RiskDAG package allows users to:
 
-1) Model the probability and costs of *latent* risks faced by enterprises and tech stacks using *the same* language used by software engineers designing crucial workflows, enabling users to understand how risks and costs can cascade once triggered,
+1) Model the probability and costs of latent risks faced by tech stacks using *the same* language used by software engineers designing crucial workflows, thereby enabling users to understand how risks and costs can cascade once triggered,
  2) Import existing Airflow DAGs used in production and annotate tasks in these DAGs with failure probabilities and cost distributions, and
  3) Link the modeling from 1) to 2) via convenient DAG-based semantics and scripting language.
 
-
 ## Features
-
 
 - **Latent Risks**: Model systemic risks and their co-dependencies (infrastructure failures, cyber attacks, external dependencies)
 - **Contagion Modeling**: Define how risks cascade and amplify using the `>>` or `@` operator, explained further below.
-- **Time Scale Conversion**: Automatically convert failure probabilities between different time scales (hourly, daily, yearly), to the relevant timescale of the relevant DAG
-- **Monte Carlo Simulation**: Run Monte Carlo simulations to quantify risk exposure; compute VaR, Expected Shortfall, etc.
+- **Time Scale Conversion**: Automatically convert failure probabilities between different time scales (hourly, daily, yearly).
+- **Monte Carlo Simulation**: Run Monte Carlo simulations to quantify risk exposure; compute exceedance curves, VaR, Expected Shortfall, etc.
 - **Interactive Visualization**: Generate exceedance curves, loss distributions, and failure rate charts
 - **Airflow Integration**: Seamlessly import existing Airflow DAGs
 
 ## Installation
-
-```bash
-# Full installation
-pip install riskdag[all]
-```
 
 ### Install from source
 
