@@ -1,16 +1,49 @@
 # RiskDAG
 
-**Enterprise Risk Modeling for DAGs and Latent Operational Cascade Risks**
+**Enterprise Risk Modeling for DAG Workflows and Risk Cascades**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+RiskDAG is a Python library designed for enterprise risk managers to model, analyze, and quantify risks in existing and new data pipelines and enterprise systems. The underlying philosophy of this package is that since many complex dependencies in modern tech stacks are handled by DAGs (directed acyclic graphs) in the Apache Airflow framework, enterprise risk managers should be able to observe these crucial DAG workflows, annotate them with estimates of the probability of failure and impact costs, and then estimate business costs via stochastic simulation.
 
-RiskDAG is a Python library designed for enterprise risk managers to model, analyze, and quantify risks in existing and new data pipelines and enterprise systems. The underlying philosophy of this package is that since many complex dependencies in modern tech stacks are handled by DAGs (directed acyclic graphs) in the Apache Airflow framework, enterprise risk managers should be able to observe these crucial DAG workflows, annotate them with estimates of the probability of failure and impact costs, and then quantify the business risks of failure cascades. The goal of the RiskDAG package is to enable enterprise risk managers to improve tech stack observability.
+The RiskDAG package enables enterprise risk managers to import and annotate existing Airflow DAGs—such as a basic ETL workflow defined by `Extract Task >> Transform Task 1 >> Load` and `Extract Task >> Transform Task 2 >> Load`, visualized below—with risk metadata like failure probabilities and cost distributions to enhance tech stack observability.
+
+```mermaid
+graph TD;
+    E["<b>Extract Task</b>"] --> T1[<b>Transform Task 1];
+    E --> T2[<b>Transform Task 2];
+    T1 --> L["<b>Database Load Task</b>"];
+    T2 --> L;
+    
+```
+For instance, an annotated version incorporates task-specific marginal probabilities of failure, vendor inputs, exogenous risks like cyber attacks, and infrastructure dependencies like so:
+
+```mermaid
+graph TD;
+    RW["Ransomware <br>p<sub>occurence</sub> = .00001%"] -.-> CS;
+    RW -.-> V1;
+    RW -.-> V2;
+    V1["Vendor 1<br>p<sub>fail</sub> = 1%"] -.-> E["<b>Extract Task</b><br>p<sub>fail</sub> = 1%, log($cost)=N($100,$0.5)"];
+    V2[Vendor 2<br>p<sub>fail</sub> = .03%] -.-> E;
+    E --> T1[<b>Transform Task 1</b><br>p<sub>fail</sub> = .02%];
+    E --> T2[<b>Transform Task 2</b><br>p<sub>fail</sub> = .04%];
+    T1 --> L["<b>Database Load Task</b> <br>p<sub>fail</sub> = .001%, log($cost)=N($1000,$0.5)"];
+    T2 --> L;
+    CS["Cloud Provider<br>p<sub>fail</sub> = .0001%, log($cost)=N($20000,$0.5)"] -.-> DB["Database p<sub>fail</sub> = .6%"];
+    DB -.-> L;
+
+    classDef dashed stroke-dasharray: 5 5;
+    V1:::dashed;
+    V2:::dashed;
+    DB:::dashed;
+    CS:::dashed;    
+```
+
+In the above, solid arrows and boxes indicate concrete tasks and hard dependencies, while dashed boxes and lines indicate latent risks and their impact on the particular DAG workflow. Marginal failure probaiblities and costs are estimated from historical Ariflow logs or by experience.
+
 
 The RiskDAG package allows users to:
 
 1) Model the probability and costs of latent risks faced by tech stacks using *the same* language used by software engineers designing crucial workflows, thereby enabling users to understand how risks and costs can cascade once triggered,
- 2) Import existing Airflow DAGs used in production and annotate tasks in these DAGs with failure probabilities and cost distributions, and
+ 2) Import existing Airflow DAGs used in production and annotate them with failure probabilities and cost distributions, and
  3) Link the modeling from 1) to 2) via convenient DAG-based semantics and scripting language.
 
 ## Features
@@ -22,15 +55,11 @@ The RiskDAG package allows users to:
 - **Interactive Visualization**: Generate exceedance curves, loss distributions, and failure rate charts
 - **Airflow Integration**: Seamlessly import existing Airflow DAGs
 
-## Installation
+## Installation & Access
 
-### Install from source
+RiskDAG is currently in private beta. 
 
-```bash
-git clone https://github.com/yourusername/riskdag.git
-cd riskdag
-pip install -e .
-```
+**Interested?** Contact: ExpandThenSimplify at gmail.com
 
 ## Quick Start
 
@@ -360,14 +389,6 @@ Airflow DAG ──► Ingestion ──► Risk Graph  ──► Simulation ─�
 - plotly >= 5.0.0 (optional, for interactive visualizations)
 - matplotlib >= 3.3.0 (optional, for static plots)
 
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## Citation
 
 If you use RiskDAG in your research or production systems, please cite:
@@ -387,12 +408,6 @@ For issues, questions, or contributions, please visit:
 - GitHub Issues: https://github.com/ExpandThenSimplify/riskdag/issues
 - Documentation: https://github.com/ExpandThenSimplify/riskdag
 
-## Roadmap
-
-- **Multiperiod MC**: The ability to run Monte Carlo simulations over numerous periods; currently single-period MC is implemented
-- **Enhanced Cascade Modelling**: Multivariate Hawkes process modelling
-- **Time scale inference**: Inferring the natural time scale of RiskDAG instances from Airflow scheduling metadata
-- **Machine learning-based risk prediction from airflow logs**: Inferring failure probabilities for RiskDAG instances from Airflow logs
 
 ## Acknowledgments
 Franz, M., Lopes, C. T., Huck, G., Dong, Y., Sumer, O., & Bader, G. D. (2016). 
