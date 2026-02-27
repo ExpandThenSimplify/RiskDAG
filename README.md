@@ -35,6 +35,7 @@ graph TD;
     V2:::dashed;
     DB:::dashed;
     CS:::dashed;    
+    RW:::dashed;      
 ```
 
 In the above, solid arrows and boxes indicate concrete tasks and hard dependencies, while dashed boxes and lines indicate latent risks and their impact on the particular DAG workflow. Marginal failure probaiblities and costs are estimated from historical Ariflow logs or by experience.
