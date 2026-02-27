@@ -7,7 +7,7 @@ RiskDAG is a Python library designed for enterprise risk managers to model, anal
 The RiskDAG package enables enterprise risk managers to import and annotate existing Airflow DAGs—such as a basic ETL workflow defined by `Extract Task >> Transform Task 1 >> Load` and `Extract Task >> Transform Task 2 >> Load`, visualized below—with risk metadata like failure probabilities and cost distributions to enhance tech stack observability.
 
 ```mermaid
-graph TD;
+graph LR;
     E["<b>Extract Task</b>"] --> T1[<b>Transform Task 1];
     E --> T2[<b>Transform Task 2];
     T1 --> L["<b>Database Load Task</b>"];
@@ -17,7 +17,7 @@ graph TD;
 For instance, an annotated version incorporates task-specific marginal probabilities of failure, vendor inputs, exogenous risks like cyber attacks, and infrastructure dependencies like so:
 
 ```mermaid
-graph TD;
+graph LR;
     RW["Ransomware <br>p<sub>occurence</sub> = .00001%"] -.-> CS;
     RW -.-> V1;
     RW -.-> V2;
@@ -35,6 +35,7 @@ graph TD;
     V2:::dashed;
     DB:::dashed;
     CS:::dashed;    
+    RW:::dashed;      
 ```
 
 In the above, solid arrows and boxes indicate concrete tasks and hard dependencies, while dashed boxes and lines indicate latent risks and their impact on the particular DAG workflow. Marginal failure probaiblities and costs are estimated from historical Ariflow logs or by experience.
