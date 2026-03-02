@@ -56,11 +56,14 @@ The RiskDAG package allows users to:
 - **Interactive Visualization**: Generate exceedance curves, loss distributions, and failure rate charts
 - **Airflow Integration**: Seamlessly import existing Airflow DAGs
 
-## Installation & Access
+## Installation
+### Install from source
 
-RiskDAG is currently in private beta. 
-
-**Interested?** Contact: ExpandThenSimplify at gmail.com
+```bash
+git clone https://github.com/yourusername/riskdag.git
+cd riskdag
+pip install -e .
+```
 
 ## Quick Start
 
