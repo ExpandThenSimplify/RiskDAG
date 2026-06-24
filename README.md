@@ -60,7 +60,7 @@ The RiskDAG package allows users to:
 ### Install from source
 
 ```bash
-git clone https://github.com/yourusername/riskdag.git
+git clone https://github.com/ExpandThenSimplify/riskdag.git
 cd riskdag
 pip install -e .
 ```
